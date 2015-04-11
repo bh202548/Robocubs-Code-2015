@@ -11,53 +11,28 @@ public class CameraFeeds extends Thread
 {
 	private int camCenter;
 	private int camRight;
-	private int curCam;
+	//private int curCam;
 	private Image frame;
 	public static final int btCamCenter = 1;
-	public static final int btCamRight = 2;
+	//public static final int btCamRight = 2;
 	public static final String camNameCenter = "cam0";
-	public static final String camNameRight = "cam1";
+	//public static final String camNameRight = "cam1";
 	CameraServer server;
 	boolean camera1 = false;
-	boolean camera2 = false;
+	boolean init = false;
+	//boolean camera2 = false;
 	boolean running;
 	
 	public CameraFeeds()
 	{
 		
         // Get camera ids by supplying camera name ex 'cam0', found on roborio web interface
-		try {
-	        camCenter = NIVision.IMAQdxOpenCamera(camNameCenter, NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-			System.out.println("Camera 1 Session Started");
-			camera1 = true;
-		} catch (Exception e) {
-			System.err.println("Camera 1 Session Failed to start.");
-			camera1 = false;
-			e.printStackTrace();
-		}
-		try {
-	        camRight = NIVision.IMAQdxOpenCamera(camNameRight, NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-			System.out.println("Camera 2 Session Started");
-			camera2 = true;
-		} catch (Exception e) {
-			System.err.println("Camera 2 Session Failed to start.");
-			camera2 = false;
-			e.printStackTrace();
-		}
-        curCam = camCenter;
-        if(camera1){
-    	NIVision.IMAQdxConfigureGrab(curCam);
-    	NIVision.IMAQdxStartAcquisition(curCam);
-        }
-        // Img that will contain camera img
-        server = CameraServer.getInstance();
-        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
         running = false;
 	}
 	
 	public void init()
 	{
-		changeCam(camCenter);
+		//changeCam(camCenter);
 	}
 	
 	@Override
@@ -66,16 +41,25 @@ public class CameraFeeds extends Thread
 		init();
 		running = true;
 		while(running){
-			if(SmartDashboard.getBoolean("Camera1", true)){
-				if(camera1){
-					changeCam(camCenter);
+			if(!camera1){
+				try{
+					camCenter = NIVision.IMAQdxOpenCamera(camNameCenter, NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+					camera1 = true;
+				}catch(Exception e){
+					
 				}
+					//curCam = camCenter;
 			}else{
-				if(camera2){
-					changeCam(camRight);
+				if(!init){
+					NIVision.IMAQdxConfigureGrab(camCenter);
+	    			NIVision.IMAQdxStartAcquisition(camCenter);
+	    			// Img that will contain camera img
+	        		server = CameraServer.getInstance();
+	        		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+	        		init = true;
 				}
-			}
 			updateCam();
+			}
 			Timer.delay(0.05);
 		}
 		 end();
@@ -86,7 +70,7 @@ public class CameraFeeds extends Thread
 	 */
 	public void end()
 	{
-		NIVision.IMAQdxStopAcquisition(curCam);
+		NIVision.IMAQdxStopAcquisition(camCenter);
 	}
 	
 	/**
@@ -95,10 +79,10 @@ public class CameraFeeds extends Thread
 	 */
 	public void changeCam(int newId)
     {
-		NIVision.IMAQdxStopAcquisition(curCam);
+		NIVision.IMAQdxStopAcquisition(camCenter);
     	NIVision.IMAQdxConfigureGrab(newId);
     	NIVision.IMAQdxStartAcquisition(newId);
-    	curCam = newId;
+    	camCenter = newId;
     }
     
 	/**
@@ -106,7 +90,7 @@ public class CameraFeeds extends Thread
 	 */
     public void updateCam()
     {
-    	NIVision.IMAQdxGrab(curCam, frame, 1);
+    	NIVision.IMAQdxGrab(camCenter, frame, 1);
         server.setImage(frame);
     }
     public void finish() {

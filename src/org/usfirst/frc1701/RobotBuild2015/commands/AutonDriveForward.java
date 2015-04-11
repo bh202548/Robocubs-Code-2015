@@ -34,7 +34,7 @@ public class AutonDriveForward extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new ElevatortoOneTote());
+    	addSequential(new ElevatortoTop());
     	addParallel(new Slidestopickupposition());
     	addSequential(new AlignWheels180());
     	addSequential(new ForwardToAutoZone());

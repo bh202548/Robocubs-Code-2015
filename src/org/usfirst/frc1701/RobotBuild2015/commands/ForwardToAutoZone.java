@@ -49,7 +49,7 @@ public class  ForwardToAutoZone extends Command {
 		RobotMap.drivetrainDriveMotorFR.set(0.4);
 		RobotMap.drivetrainDriveMotorBR.set(0.4);
 		RobotMap.drivetrainDriveMotorBL.set(-0.4);
-		if(timer.get() > 5){
+		if(timer.get() > 2.7){
 			finished = true;
 		}
     }

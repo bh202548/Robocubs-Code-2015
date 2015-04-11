@@ -39,7 +39,7 @@ public class  MoveElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double y = Robot.oi.getElevatorJoystick().getY();
+    	double y = Robot.oi.getElevatorJoystick().getY()*0.67;
     	double x = Robot.oi.getElevatorJoystick().getX();
 //    	if(q != lastq){
 //	    	if(q < -0.75){
@@ -50,16 +50,16 @@ public class  MoveElevator extends Command {
 //	    		new ElevatortoOneTote().start();
 //	    	}
 //    	}
+    	RobotMap.last = RobotMap.elevatorOneToteLimitSwitch.get();
     	SmartDashboard.putBoolean("bottom limit", RobotMap.elevatorBottomLimitSwitch.get());
     	SmartDashboard.putBoolean("top limit", RobotMap.elevatorTopLimitSwitch.get());
     	SmartDashboard.putBoolean("step limit", RobotMap.elevatorStepLimitSwitch.get());
     	SmartDashboard.putBoolean("tote limit", RobotMap.elevatorOneToteLimitSwitch.get());
-    	SmartDashboard.putBoolean("tote limit", RobotMap.last);
-    	RobotMap.last = RobotMap.elevatorOneToteLimitSwitch.get();
+    	/*SmartDashboard.putBoolean("tote limit", RobotMap.last);
     	SmartDashboard.putBoolean("left retract limit", RobotMap.elevatorLeftSlideLimitSwitchRetracted.get());
     	SmartDashboard.putBoolean("right retract limit", RobotMap.elevatorRightSlideLimitSwitchRetracted.get());
     	SmartDashboard.putBoolean("hold tote limit", RobotMap.elevatorRightSlideLimitSwitchTote.get());
-    	SmartDashboard.putBoolean("extend limit", RobotMap.elevatorRightSlideLimitSwitchExtended.get());
+    	SmartDashboard.putBoolean("extend limit", RobotMap.elevatorRightSlideLimitSwitchExtended.get());*/
     	SmartDashboard.putBoolean("ir thing", RobotMap.elevatorIRToteIn.get());
     	if(RobotMap.elevatorBottomLimitSwitch.get() && y >0){
     		RobotMap.elevatorElevatorMotorL.set(0);
@@ -78,7 +78,7 @@ public class  MoveElevator extends Command {
 //    		RobotMap.elevatorExtendMotorL.set(0);
 //    		RobotMap.elevatorExtendMotorR.set(0);
 //    	}else{
-    		if(Math.abs(x) > 0.15){
+    		if(Math.abs(x) > 0.90){
         		RobotMap.elevatorExtendMotorL.set(-x);
         		RobotMap.elevatorExtendMotorR.set(x);
         	}else{

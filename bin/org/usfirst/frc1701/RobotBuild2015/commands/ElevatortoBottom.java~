@@ -11,10 +11,12 @@
 
 package org.usfirst.frc1701.RobotBuild2015.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc1701.RobotBuild2015.Robot;
 import org.usfirst.frc1701.RobotBuild2015.RobotMap;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
@@ -22,6 +24,7 @@ import org.usfirst.frc1701.RobotBuild2015.RobotMap;
 public class  ElevatortoBottom extends Command {
 	
 	boolean finished = false;
+	Timer timer = new Timer();
 	
     public ElevatortoBottom() {
         // Use requires() here to declare subsystem dependencies
@@ -40,13 +43,19 @@ public class  ElevatortoBottom extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	finished = false;
+    	if(!RobotMap.elevatorStepLimitSwitch.get()){
+    		timer.start();
+    	}
     	if(!RobotMap.elevatorBottomLimitSwitch.get()){
-    		RobotMap.elevatorElevatorMotorL.set(1);
-    		RobotMap.elevatorElevatorMotorR.set(1);
+    		RobotMap.elevatorElevatorMotorL.set(0.8);
+    		RobotMap.elevatorElevatorMotorR.set(0.8);
     	}else{
     		finished = true;
     	}
     	if(Math.abs(Robot.oi.getElevatorJoystick().getY()) > 0.15){
+    		finished = true;
+    	}
+    	if(timer.get() > 0.2){
     		finished = true;
     	}
     }

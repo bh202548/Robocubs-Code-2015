@@ -47,8 +47,8 @@ public class  ElevatortoBottom extends Command {
     		timer.start();
     	}
     	if(!RobotMap.elevatorBottomLimitSwitch.get()){
-    		RobotMap.elevatorElevatorMotorL.set(1);
-    		RobotMap.elevatorElevatorMotorR.set(1);
+    		RobotMap.elevatorElevatorMotorL.set(0.8);
+    		RobotMap.elevatorElevatorMotorR.set(0.8);
     	}else{
     		finished = true;
     	}

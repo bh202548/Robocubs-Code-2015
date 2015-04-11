@@ -45,8 +45,8 @@ public class  ElevatortoOneTote extends Command {
     		polarity = -1;
     	}
     	if(!RobotMap.elevatorOneToteLimitSwitch.get()){
-    		RobotMap.elevatorElevatorMotorL.set(polarity * 1);
-    		RobotMap.elevatorElevatorMotorR.set(polarity * 1);
+    		RobotMap.elevatorElevatorMotorL.set(polarity * 0.5);
+    		RobotMap.elevatorElevatorMotorR.set(polarity * 0.5);
     	}else{
     		finished = true;
     	}if(RobotMap.elevatorHeight == 4){

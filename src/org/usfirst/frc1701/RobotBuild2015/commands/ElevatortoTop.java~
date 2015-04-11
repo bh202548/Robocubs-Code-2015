@@ -41,8 +41,8 @@ public class  ElevatortoTop extends Command {
     protected void execute() {
     	finished = false;
     	if(!RobotMap.elevatorTopLimitSwitch.get()){
-    		RobotMap.elevatorElevatorMotorL.set(-1);
-    		RobotMap.elevatorElevatorMotorR.set(-1);
+    		RobotMap.elevatorElevatorMotorL.set(-0.5);
+    		RobotMap.elevatorElevatorMotorR.set(-0.5);
     	}else{
     		finished = true;
     	}

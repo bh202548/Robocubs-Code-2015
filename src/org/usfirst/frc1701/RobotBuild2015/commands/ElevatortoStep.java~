@@ -45,8 +45,8 @@ public class  ElevatortoStep extends Command {
     		polarity = -1;
     	}
     	if(!RobotMap.elevatorStepLimitSwitch.get()){
-    		RobotMap.elevatorElevatorMotorL.set(polarity * 1);
-    		RobotMap.elevatorElevatorMotorR.set(polarity * 1);
+    		RobotMap.elevatorElevatorMotorL.set(polarity * 0.8);
+    		RobotMap.elevatorElevatorMotorR.set(polarity * 0.8);
     	}else{
     		finished = true;
     	}if(RobotMap.elevatorHeight == 2){

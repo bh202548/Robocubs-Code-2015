@@ -65,8 +65,8 @@ public class  runimu extends Command {
 //        RobotMap.navx.read(0x08, 1, buffer);
 //        boolean connected = buffer[0] != 0;
         
-        SmartDashboard.putBoolean(  "IMU_Connected",        RobotMap.imu.isConnected());
-        SmartDashboard.putNumber(   "IMU_Yaw",             RobotMap.imu.getYaw() );
+        //SmartDashboard.putBoolean(  "IMU_Connected",        RobotMap.imu.isConnected());
+        //SmartDashboard.putNumber(   "IMU_Yaw",             RobotMap.imu.getYaw() );
     }
 
     // Make this return true when this Command no longer needs to run execute()

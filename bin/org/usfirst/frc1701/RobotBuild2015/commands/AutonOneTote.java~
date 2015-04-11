@@ -34,13 +34,13 @@ public class AutonOneTote extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new ElevatortoOneTote());
-    	addParallel(new Slidestopickupposition());
-    	addSequential(new AlignWheels180());
-    	addSequential(new ForwardtoTote());
+//    	addParallel(new ElevatortoOneTote());
+//    	addParallel(new Slidestopickupposition());
+//    	addSequential(new AlignWheels180());
+//    	addSequential(new ForwardtoTote());
     	addSequential(new ElevatortoBottom());
     	addSequential(new Wait());
-    	addSequential(new ElevatortoOneTote());
+    	addSequential(new ElevatortoTop());
     	addSequential(new AlignWheels270());
     	addSequential(new ForwardToAutoZone());
     	addSequential(new ElevatortoBottom());

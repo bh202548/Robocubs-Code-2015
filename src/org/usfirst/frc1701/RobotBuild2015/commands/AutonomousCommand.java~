@@ -25,9 +25,11 @@ public class  AutonomousCommand extends Command {
 
 	boolean finished = false;
 	Timer timer;
-	double auton = 0;
+	int auton = 0;
 	int stage = 0;
 	double timeold = 0;
+	
+	boolean init = false;
 	
     public AutonomousCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -40,19 +42,24 @@ public class  AutonomousCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println ("Initializing...");
     	timer = new Timer();
     	timer.start();
     	stage = 0;
     	RobotMap.elevatorHeight = 0;
-    	auton = SmartDashboard.getNumber("Auton", 0);
-    	if(auton == 0){
-    		SmartDashboard.putNumber("Auton", 0);
+    	auton = (int)SmartDashboard.getNumber("Auton", 10);
+    	System.out.println ("Read dashboard.  Auton = " + auton);
+    	if(auton == 10){
+    		SmartDashboard.putNumber("Auton", 10);
     	}
     	RobotMap.initialzed = false;
+    	init = true;
+    	System.out.println ("Initialization complete. auton = " + auton);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println ("Executing.\t" + init + "\t" + auton );
     	finished = false;
     	if(timer.get() > 15){
     		finished = true;
@@ -65,19 +72,34 @@ public class  AutonomousCommand extends Command {
 			RobotMap.initialzed = true;
 		}
     	SmartDashboard.putBoolean("ir thing", RobotMap.elevatorIRToteIn.get());
-    	SmartDashboard.putNumber("stage", stage);
+    	//SmartDashboard.putNumber("stage", stage);
+    	
+    	//if initialize didn't run, set auton to do nothing
+    	if (!init)
+    		auton = 10;
+    	
     	switch((int)auton){
+    	case 0:
+    		new AutonDriveForward().start();
+    		RobotMap.yawOffset = 0;
+    		break;
     	case 1:
     		new AutonOneTote().start();
+    		RobotMap.yawOffset = 0;
     		break;
     	case 2:
     		new AutonThreeTote().start();
+    		RobotMap.yawOffset = 0;
+    		break;
+    	case 3:
+    		new LiftBinAuton().start();
+    		RobotMap.yawOffset = 0;
     		break;
     	default:
-    		new AutonDriveForward().start();
+    		RobotMap.yawOffset = 0;
+    		finished = true;
     		break;
     	}
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
