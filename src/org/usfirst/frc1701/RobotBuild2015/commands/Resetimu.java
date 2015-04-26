@@ -40,8 +40,6 @@ public class  Resetimu extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	RobotMap.navx.write(0x16, 0);
-//    	RobotMap.navx.write(0x17, 0);
     	RobotMap.imu.zeroYaw();
     	finished = true;
     }

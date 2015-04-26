@@ -63,12 +63,12 @@ public class Vector {
 	public void addAngle(double angle){
 		SmartDashboard.putNumber("Xo", x);
 		SmartDashboard.putNumber("Yo", y);
-		double tempAngle = getAngleDeg() + angle -180;
+		double tempAngle = getAngleDeg() + angle;
 		tempAngle  %= 360;
 		if(tempAngle < 0)
 			tempAngle += 360;
 		SmartDashboard.putNumber("Temp Angle", tempAngle);
-		double H = Math.abs(getH());
+		double H = getH();
 		x = Math.sin(tempAngle*Math.PI/180)*H;
 		y = Math.cos(tempAngle*Math.PI/180)*H;
 		SmartDashboard.putNumber("Cos", Math.cos(tempAngle*Math.PI/180));
@@ -77,8 +77,9 @@ public class Vector {
 		SmartDashboard.putNumber("Y", y);
 	}
 
-	public void add(Vector vector) {
+	public Vector add(Vector vector) {
 		x += vector.getX();
 		y += vector.getY();
+		return new Vector(x, y);
 	}
 }
